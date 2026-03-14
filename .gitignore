@@ -1,0 +1,9 @@
+# ignore all .a files
+__pycache__
+.ipynb_checkpoints
+
+# ignore src other packages
+src/polarizationpy
+
+# ignore output data
+Data*
