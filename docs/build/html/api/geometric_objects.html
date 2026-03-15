@@ -1,0 +1,988 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hypo.coordinate &mdash; hypo 0.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7026087e"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hypo.Feedpy" href="source_objects.html" />
+    <link rel="prev" title="Installation" href="../introductions/installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            hypo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introductions/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introductions/installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hypo.coordinate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conventions">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.coordinate.coord_sys"><code class="docutils literal notranslate"><span class="pre">coord_sys</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.coordinate.coord_sys.Global_to_Local"><code class="docutils literal notranslate"><span class="pre">coord_sys.Global_to_Local()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.coordinate.coord_sys.Local_to_Global"><code class="docutils literal notranslate"><span class="pre">coord_sys.Local_to_Global()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.coordinate.coord_sys.Local_to_Ref"><code class="docutils literal notranslate"><span class="pre">coord_sys.Local_to_Ref()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.coordinate.coord_sys.Ref_to_Local"><code class="docutils literal notranslate"><span class="pre">coord_sys.Ref_to_Local()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.coordinate.coord_sys.ToCylinder"><code class="docutils literal notranslate"><span class="pre">coord_sys.ToCylinder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.coordinate.coord_sys.ToSpherical"><code class="docutils literal notranslate"><span class="pre">coord_sys.ToSpherical()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.coordinate.coord_sys.To_coord_sys"><code class="docutils literal notranslate"><span class="pre">coord_sys.To_coord_sys()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-hypo.rim">hypo.rim</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.rim.Elliptical_rim"><code class="docutils literal notranslate"><span class="pre">Elliptical_rim</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.rim.Elliptical_rim.radial_profile"><code class="docutils literal notranslate"><span class="pre">Elliptical_rim.radial_profile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.rim.Elliptical_rim.radial_profile_2"><code class="docutils literal notranslate"><span class="pre">Elliptical_rim.radial_profile_2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.rim.Elliptical_rim.sampling"><code class="docutils literal notranslate"><span class="pre">Elliptical_rim.sampling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.rim.Elliptical_rim.sampling2"><code class="docutils literal notranslate"><span class="pre">Elliptical_rim.sampling2()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.rim.Rect_rim"><code class="docutils literal notranslate"><span class="pre">Rect_rim</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.rim.Rect_rim.sampling"><code class="docutils literal notranslate"><span class="pre">Rect_rim.sampling()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.rim.Table_rect_rim"><code class="docutils literal notranslate"><span class="pre">Table_rect_rim</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.rim.Table_rect_rim.sampling"><code class="docutils literal notranslate"><span class="pre">Table_rect_rim.sampling()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-hypo.surface">hypo.surface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-philosophy">Design philosophy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-convention">Common convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.BiconicSurface"><code class="docutils literal notranslate"><span class="pre">BiconicSurface</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.ConicSurface"><code class="docutils literal notranslate"><span class="pre">ConicSurface</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.EvenAsphereSurface"><code class="docutils literal notranslate"><span class="pre">EvenAsphereSurface</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.PolySurface"><code class="docutils literal notranslate"><span class="pre">PolySurface</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.RotationalSurface"><code class="docutils literal notranslate"><span class="pre">RotationalSurface</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.Surface"><code class="docutils literal notranslate"><span class="pre">Surface</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.surface.Surface.normal"><code class="docutils literal notranslate"><span class="pre">Surface.normal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.surface.Surface.sag"><code class="docutils literal notranslate"><span class="pre">Surface.sag()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.build_biconic_sag_normal"><code class="docutils literal notranslate"><span class="pre">build_biconic_sag_normal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.build_conic_sag_normal"><code class="docutils literal notranslate"><span class="pre">build_conic_sag_normal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.build_even_asphere_sag_normal"><code class="docutils literal notranslate"><span class="pre">build_even_asphere_sag_normal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.build_poly_sag_normal"><code class="docutils literal notranslate"><span class="pre">build_poly_sag_normal()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.surface.build_rsf_sag_normal"><code class="docutils literal notranslate"><span class="pre">build_rsf_sag_normal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-hypo.lenspy">hypo.lenspy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#typical-workflow">Typical workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coordinate-convention">Coordinate convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#units">Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hypo.lenspy.simple_Lens"><code class="docutils literal notranslate"><span class="pre">simple_Lens</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.lenspy.simple_Lens.PO_analysis"><code class="docutils literal notranslate"><span class="pre">simple_Lens.PO_analysis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.lenspy.simple_Lens.sampling"><code class="docutils literal notranslate"><span class="pre">simple_Lens.sampling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.lenspy.simple_Lens.source"><code class="docutils literal notranslate"><span class="pre">simple_Lens.source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hypo.lenspy.simple_Lens.to_pyvista_solid"><code class="docutils literal notranslate"><span class="pre">simple_Lens.to_pyvista_solid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="source_objects.html">hypo.Feedpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_objects.html">hypo.field_storage</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">hypo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">hypo.coordinate</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/geometric_objects.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hypo.coordinate">
+<span id="hypo-coordinate"></span><h1>hypo.coordinate<a class="headerlink" href="#module-hypo.coordinate" title="Link to this heading"></a></h1>
+<p>Coordinate system utilities for the RefracPO physical-optics model.</p>
+<section id="conventions">
+<h2>Conventions<a class="headerlink" href="#conventions" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Angles</dt><dd><p>All Euler angles are in radians.</p>
+</dd>
+<dt>Euler axes</dt><dd><p>The <cite>axes</cite> argument specifies the Euler rotation axis sequence <strong>with respect to the
+reference coordinate system axes</strong>. In other words, the rotations are applied in the
+order given by <cite>axes</cite> about the reference-frame axes.</p>
+</dd>
+<dt>Vector vs point transforms</dt><dd><p>The <cite>Vector</cite> flag distinguishes direction vectors from point coordinates:</p>
+<ul class="simple">
+<li><p>Vector=False (default): treat (x, y, z) as <strong>points</strong>. Transforms include both rotation
+and translation (origin shift).</p></li>
+<li><p>Vector=True: treat (x, y, z) as <strong>vectors/directions</strong> (e.g., field vectors, surface
+normals). Only the rotational part is applied; <strong>no origin correction/translation</strong> is
+performed.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.coordinate.</span></span><span class="sig-name descname"><span class="pre">coord_sys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">origin=[0,</span> <span class="pre">0,</span> <span class="pre">0],</span> <span class="pre">angle=[0,</span> <span class="pre">0,</span> <span class="pre">0],</span> <span class="pre">axes='xyz',</span> <span class="pre">rotation_matrix=None,</span> <span class="pre">ref_coord=&lt;hypo.coordinate._global_coord_sys</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Coordinate frame with respect to a reference frame (default: global_coord).</p>
+<p>This class defines a local coordinate system by specifying:
+- <cite>origin</cite>: local origin expressed in the reference coordinate system;
+- <cite>angle</cite> + <cite>axes</cite>: Euler-angle (rad) rotation defining the local orientation w.r.t. the axis order in ‘axes’
+- <cite>rotation_matrix</cite>: explicitly provided 3x3 rotation matrix (local -&gt; reference);
+- <cite>ref_coord</cite>: the reference coordinate frame (can be another coord_sys instance).</p>
+<section id="key-matrices-naming-is-to-from-as-implied-by-usage">
+<h2>Key matrices (naming is “to/from”, as implied by usage)<a class="headerlink" href="#key-matrices-naming-is-to-from-as-implied-by-usage" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>mat_l_r: local  -&gt; reference rotation (3x3)</p></li>
+<li><p>mat_r_l: reference -&gt; local rotation (transpose of mat_l_r)</p></li>
+<li><p>mat_l_g: local  -&gt; global rotation (composition via ref_coord)</p></li>
+<li><p>mat_g_l: global -&gt; local rotation (transpose of mat_l_g)</p></li>
+</ul>
+</section>
+<section id="points-vs-vectors">
+<h2>Points vs vectors<a class="headerlink" href="#points-vs-vectors" title="Link to this heading"></a></h2>
+<p>All transform methods accept <cite>Vector</cite>:
+- Vector=False: treat (x,y,z) as <em>point coordinates</em>; translation (origin) is applied.
+- Vector=True: treat (x,y,z) as <em>direction vectors</em>; translation is NOT applied.</p>
+</section>
+<section id="input-output-shape-convention">
+<h2>Input/output shape convention<a class="headerlink" href="#input-output-shape-convention" title="Link to this heading"></a></h2>
+<p>x, y, z are assumed to be array-like of shape (N,) or (1,N) such that
+<cite>np.append([x,y],[z],axis=0)</cite> yields a (3, N) array.
+The outputs are returned as (x_out, y_out, z_out), each with shape (N,).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys.Global_to_Local">
+<span class="sig-name descname"><span class="pre">Global_to_Local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys.Global_to_Local" title="Link to this definition"></a></dt>
+<dd><p>Convert coordinates from the global frame to this local frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Cartesian coordinates in the global frame (array-like).</p></li>
+<li><p><strong>y</strong> – Cartesian coordinates in the global frame (array-like).</p></li>
+<li><p><strong>z</strong> – Cartesian coordinates in the global frame (array-like).</p></li>
+<li><p><strong>Vector</strong> – If True, treat inputs as direction vectors (no translation subtraction).
+If False, treat inputs as points (subtract translation by self.origin_g).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(x_loc, y_loc, z_loc) in the local frame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys.Local_to_Global">
+<span class="sig-name descname"><span class="pre">Local_to_Global</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys.Local_to_Global" title="Link to this definition"></a></dt>
+<dd><p>Convert coordinates from this local frame to the global frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Cartesian coordinates in the local frame (array-like).</p></li>
+<li><p><strong>y</strong> – Cartesian coordinates in the local frame (array-like).</p></li>
+<li><p><strong>z</strong> – Cartesian coordinates in the local frame (array-like).</p></li>
+<li><p><strong>Vector</strong> – If True, treat inputs as direction vectors (no translation).
+If False, treat inputs as points (apply translation by self.origin_g).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(x_g, y_g, z_g) in the global frame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys.Local_to_Ref">
+<span class="sig-name descname"><span class="pre">Local_to_Ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys.Local_to_Ref" title="Link to this definition"></a></dt>
+<dd><p>Convert coordinates from this local frame to the reference frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Cartesian coordinates in the local frame (array-like).</p></li>
+<li><p><strong>y</strong> – Cartesian coordinates in the local frame (array-like).</p></li>
+<li><p><strong>z</strong> – Cartesian coordinates in the local frame (array-like).</p></li>
+<li><p><strong>Vector</strong> – If True, treat inputs as direction vectors (no translation).
+If False, treat inputs as points (apply translation by self.origin).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(x_ref, y_ref, z_ref) in the reference frame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys.Ref_to_Local">
+<span class="sig-name descname"><span class="pre">Ref_to_Local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys.Ref_to_Local" title="Link to this definition"></a></dt>
+<dd><p>Convert coordinates from the reference frame to this local frame.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This is the inverse of Local_to_Ref for pure rotation + translation.</p></li>
+<li><p>The comment “commonly this function is useless” suggests this is less used
+in the current workflow, but it is mathematically well-defined.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Cartesian coordinates in the reference frame (array-like).</p></li>
+<li><p><strong>y</strong> – Cartesian coordinates in the reference frame (array-like).</p></li>
+<li><p><strong>z</strong> – Cartesian coordinates in the reference frame (array-like).</p></li>
+<li><p><strong>Vector</strong> – If True, treat inputs as direction vectors (no translation subtraction).
+If False, treat inputs as points (subtract translation by self.origin).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(x_loc, y_loc, z_loc) in the local frame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys.ToCylinder">
+<span class="sig-name descname"><span class="pre">ToCylinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys.ToCylinder" title="Link to this definition"></a></dt>
+<dd><p>Convert Cartesian coordinates to cylindrical coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rho, phi, z (as defined by cartesian2cylinder in .transform).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys.ToSpherical">
+<span class="sig-name descname"><span class="pre">ToSpherical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys.ToSpherical" title="Link to this definition"></a></dt>
+<dd><p>Convert Cartesian coordinates to spherical coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>r, theta, phi (as defined by cartesian2spherical in .transform).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.coordinate.coord_sys.To_coord_sys">
+<span class="sig-name descname"><span class="pre">To_coord_sys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_coord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.coordinate.coord_sys.To_coord_sys" title="Link to this definition"></a></dt>
+<dd><p>Transform coordinates from this local frame into another coordinate system.</p>
+<dl class="simple">
+<dt>Implementation detail:</dt><dd><dl class="simple">
+<dt>This is done via the global frame as an intermediate:</dt><dd><p>local (self) -&gt; global -&gt; local (target)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_coord</strong> – target coordinate system (another coord_sys instance).</p></li>
+<li><p><strong>x</strong> – coordinates in <em>this</em> local frame.</p></li>
+<li><p><strong>y</strong> – coordinates in <em>this</em> local frame.</p></li>
+<li><p><strong>z</strong> – coordinates in <em>this</em> local frame.</p></li>
+<li><p><strong>Vector</strong> – point vs vector flag; forwarded to both transforms.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(x_t, y_t, z_t) expressed in the target coord_sys local frame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-hypo.rim">
+<span id="hypo-rim"></span><h1>hypo.rim<a class="headerlink" href="#module-hypo.rim" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.rim.Elliptical_rim">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.rim.</span></span><span class="sig-name descname"><span class="pre">Elliptical_rim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_inner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Elliptical_rim" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Elliptical aperture/rim definition and sampling utilities.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The ellipse is centered at (cx, cy).</p></li>
+<li><p><cite>a</cite> and <cite>b</cite> are semi-axis lengths along x and y.</p></li>
+<li><p>Returned <cite>w</cite> is area weight per sample for numerical integration.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.rim.Elliptical_rim.radial_profile">
+<span class="sig-name descname"><span class="pre">radial_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Elliptical_rim.radial_profile" title="Link to this definition"></a></dt>
+<dd><p>Polar boundary radius R(phi) of the ellipse.</p>
+<dl class="simple">
+<dt>Uses the general axis-aligned ellipse form:</dt><dd><p>R(phi) = 1 / sqrt((cos(phi)/ax)^2 + (sin(phi)/by)^2)</p>
+</dd>
+</dl>
+<p>which is stable for both a&gt;=b and a&lt;b.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>phi</strong> (<em>array_like</em>) – Polar angle in radians measured from the ellipse center.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.rim.Elliptical_rim.radial_profile_2">
+<span class="sig-name descname"><span class="pre">radial_profile_2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Elliptical_rim.radial_profile_2" title="Link to this definition"></a></dt>
+<dd><p>Polar boundary radius R(phi) when the polar origin is shifted to (x1, y1).</p>
+<section id="geometry">
+<h2>Geometry<a class="headerlink" href="#geometry" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Ellipse (centered at the class origin):</dt><dd><p>(x/a)^2 + (y/b)^2 = 1</p>
+</dd>
+<dt>Ray from shifted origin:</dt><dd><p>x = x1 + R*cos(phi), y = y1 + R*sin(phi)</p>
+</dd>
+<dt>Solving for R gives:</dt><dd><p>A*R^2 + B*R + C = 0</p>
+</dd>
+<dt>where</dt><dd><p>A = cos^2(phi)/a^2 + sin^2(phi)/b^2
+B = 2*(x1*cos(phi)/a^2 + y1*sin(phi)/b^2)
+C = x1^2/a^2 + y1^2/b^2 - 1</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>R</strong> – Positive-distance intersection along the ray direction.
+If no real forward intersection exists for a sample, returns NaN there.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>ndarray</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.rim.Elliptical_rim.sampling">
+<span class="sig-name descname"><span class="pre">sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quadrature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nr_part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.283185307179586</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Phi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'less'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Elliptical_rim.sampling" title="Link to this definition"></a></dt>
+<dd><p>Sample points on the elliptical rim.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Nx</strong> (<em>int</em>) – Sampling settings.
+- uniform: grid counts on x/y.
+- gaussian: Nr/Nphi counts expected by <cite>Guass_L_quadrs_Circ</cite>.</p></li>
+<li><p><strong>Ny</strong> (<em>int</em>) – Sampling settings.
+- uniform: grid counts on x/y.
+- gaussian: Nr/Nphi counts expected by <cite>Guass_L_quadrs_Circ</cite>.</p></li>
+<li><p><strong>quadrature</strong> (<em>{'uniform'</em><em>, </em><em>'gaussian'}</em>) – Sampling scheme.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>x, y, w</strong> – Sample locations and integration weights.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.rim.Elliptical_rim.sampling2">
+<span class="sig-name descname"><span class="pre">sampling2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quadrature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nr_part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.283185307179586</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Phi_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'less'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Elliptical_rim.sampling2" title="Link to this definition"></a></dt>
+<dd><p>Sample points like <cite>sampling</cite>, but treat (x1, y1) as the sampling center/origin.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>For <cite>uniform</cite>, a Cartesian grid is built around <cite>(x1, y1)</cite> and then
+clipped by the ellipse centered at the same shifted origin.</p></li>
+<li><p>For <cite>gaussian</cite>, polar rays are launched from <cite>(x1, y1)</cite> while the
+ellipse itself remains centered at <cite>(self.cx, self.cy)</cite>. The
+ray-to-boundary distance is computed by <cite>radial_profile_2</cite>.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.rim.Rect_rim">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.rim.</span></span><span class="sig-name descname"><span class="pre">Rect_rim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Rect_rim" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Rectangular aperture/rim definition and sampling utilities.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.rim.Rect_rim.sampling">
+<span class="sig-name descname"><span class="pre">sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quadrature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nx_part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny_part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Rect_rim.sampling" title="Link to this definition"></a></dt>
+<dd><p>Sample points on the rectangular rim.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Nx</strong> (<em>int</em>) – Number of points along x and y.</p></li>
+<li><p><strong>Ny</strong> (<em>int</em>) – Number of points along x and y.</p></li>
+<li><p><strong>quadrature</strong> (<em>{'uniform'</em><em>, </em><em>'gaussian'}</em>) – Sampling scheme. <cite>uniform</cite> uses cell-center points on a Cartesian
+grid; <cite>gaussian</cite> uses tensor-product Gaussian quadrature points.</p></li>
+<li><p><strong>Nx_part</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of x/y sub-intervals passed to <cite>Gauss_L_quadrs2d</cite> in the
+Gaussian branch.</p></li>
+<li><p><strong>Ny_part</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of x/y sub-intervals passed to <cite>Gauss_L_quadrs2d</cite> in the
+Gaussian branch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>x, y, w</strong> – Flattened sample coordinates and area weights.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.rim.Table_rect_rim">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.rim.</span></span><span class="sig-name descname"><span class="pre">Table_rect_rim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Table_rect_rim" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Collection of multiple rectangular panels sampled together.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.rim.Table_rect_rim.sampling">
+<span class="sig-name descname"><span class="pre">sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quadrature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.rim.Table_rect_rim.sampling" title="Link to this definition"></a></dt>
+<dd><p>Sample all rectangular panels and concatenate outputs.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>If <cite>Nx</cite>/<cite>Ny</cite> are ints, the same counts are used for each panel.</p></li>
+<li><p>Returns concatenated <cite>x</cite>, <cite>y</cite>, <cite>w</cite> arrays across all panels, so panel
+membership is not preserved in the output.</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-hypo.surface">
+<span id="hypo-surface"></span><h1>hypo.surface<a class="headerlink" href="#module-hypo.surface" title="Link to this heading"></a></h1>
+<p>Surface builders and lightweight surface classes for refractive PO models.</p>
+<p>This module provides a small set of reusable surface descriptions used by the
+refractive physical-optics workflow:</p>
+<ul class="simple">
+<li><p>rotationally symmetric profiles read from RSF files,</p></li>
+<li><p>conic surfaces,</p></li>
+<li><p>even-asphere surfaces,</p></li>
+<li><p>biconic surfaces,</p></li>
+<li><p>and generic 2-D polynomial surfaces.</p></li>
+</ul>
+<section id="design-philosophy">
+<h2>Design philosophy<a class="headerlink" href="#design-philosophy" title="Link to this heading"></a></h2>
+<p>Each analytic or file-backed surface is exposed in two layers:</p>
+<ol class="arabic simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">build_*_sag_normal(...)</span></code> function that returns two callables
+<code class="docutils literal notranslate"><span class="pre">(sag_func,</span> <span class="pre">normal_func)</span></code>.</p></li>
+<li><p>A small wrapper class derived from <code class="docutils literal notranslate"><span class="pre">Surface</span></code> (or <code class="docutils literal notranslate"><span class="pre">RotationalSurface</span></code>)
+that stores and exposes those callables with a uniform interface.</p></li>
+</ol>
+<p>This split keeps the mathematical surface description reusable in functional
+code while still supporting an object-oriented interface in higher-level lens
+models.</p>
+</section>
+<section id="common-convention">
+<h2>Common convention<a class="headerlink" href="#common-convention" title="Link to this heading"></a></h2>
+<p>All surfaces are represented as graph surfaces</p>
+<blockquote>
+<div><p>z = z(x, y)</p>
+</div></blockquote>
+<p>in their own local coordinate system. The returned surface normal follows the
+package convention</p>
+<blockquote>
+<div><p>n ~ (dz/dx, dz/dy, -1)</p>
+</div></blockquote>
+<p>and is normalized to unit length before being returned as a <code class="docutils literal notranslate"><span class="pre">Vector</span></code>.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.surface.BiconicSurface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">BiconicSurface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.BiconicSurface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hypo.surface.Surface" title="hypo.surface.Surface"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surface</span></code></a></p>
+<p>Surface with independent conic curvatures along x and y.</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">ConicSurface</span></code>, this class does not reduce the geometry to a
+single radial coordinate. It is therefore useful for astigmatic or
+otherwise anisotropic lens faces.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.surface.ConicSurface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">ConicSurface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.ConicSurface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hypo.surface.RotationalSurface" title="hypo.surface.RotationalSurface"><code class="xref py py-class docutils literal notranslate"><span class="pre">RotationalSurface</span></code></a></p>
+<p>Conic rotational surface defined by radius and conic constant.</p>
+<p>This class is a thin object-oriented wrapper around
+<code class="docutils literal notranslate"><span class="pre">build_conic_sag_normal</span></code>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.surface.EvenAsphereSurface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">EvenAsphereSurface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">even_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.EvenAsphereSurface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hypo.surface.RotationalSurface" title="hypo.surface.RotationalSurface"><code class="xref py py-class docutils literal notranslate"><span class="pre">RotationalSurface</span></code></a></p>
+<p>Rotational surface with a conic base plus even-power polynomial terms.</p>
+<p><code class="docutils literal notranslate"><span class="pre">even_terms</span></code> accepts a mapping such as <code class="docutils literal notranslate"><span class="pre">{2:</span> <span class="pre">A2,</span> <span class="pre">4:</span> <span class="pre">A4,</span> <span class="pre">6:</span> <span class="pre">A6}</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">2</span></code>-order term is supported, but note that it is degenerate with the
+vertex curvature set by <code class="docutils literal notranslate"><span class="pre">radius</span></code>.</p>
+<p>This class is the rotationally symmetric analogue of the common optical
+“conic base + even polynomial correction” parameterization.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.surface.PolySurface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">PolySurface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.PolySurface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hypo.surface.Surface" title="hypo.surface.Surface"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surface</span></code></a></p>
+<p>Surface described by a 2-D polynomial coefficient matrix.</p>
+<p>This wrapper is useful for freeform surfaces described directly by a
+polynomial coefficient table or by a <code class="docutils literal notranslate"><span class="pre">.surfc</span></code> coefficient file.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.surface.RotationalSurface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">RotationalSurface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cm'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.RotationalSurface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hypo.surface.Surface" title="hypo.surface.Surface"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surface</span></code></a></p>
+<p>Rotationally symmetric surface.</p>
+<p>A rotational surface can be defined directly by sag/normal callables or by
+supplying an RSF sag file.</p>
+<p>This class is mainly a convenience wrapper for the common case where the
+sag depends only on the radial coordinate <code class="docutils literal notranslate"><span class="pre">r</span> <span class="pre">=</span> <span class="pre">sqrt(x^2</span> <span class="pre">+</span> <span class="pre">y^2)</span></code>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.surface.Surface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">Surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.Surface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>General surface defined by <code class="docutils literal notranslate"><span class="pre">sag(x,</span> <span class="pre">y)</span></code> and <code class="docutils literal notranslate"><span class="pre">normal(x,</span> <span class="pre">y)</span></code> callables.</p>
+<p>This is the minimal common interface expected by higher-level refractive
+optics code. Subclasses mainly exist to package how the callables are
+constructed; the evaluation API itself stays intentionally small.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.surface.Surface.normal">
+<span class="sig-name descname"><span class="pre">normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.Surface.normal" title="Link to this definition"></a></dt>
+<dd><p>Evaluate the unit surface normal at <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.surface.Surface.sag">
+<span class="sig-name descname"><span class="pre">sag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.Surface.sag" title="Link to this definition"></a></dt>
+<dd><p>Evaluate the sag <code class="docutils literal notranslate"><span class="pre">z(x,</span> <span class="pre">y)</span></code> in the surface local frame.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypo.surface.build_biconic_sag_normal">
+<span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">build_biconic_sag_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.build_biconic_sag_normal" title="Link to this definition"></a></dt>
+<dd><p>Build sag and normal callables for a biconic surface.</p>
+<p>A biconic is the non-rotational analogue of a conic, with independent
+curvatures and conic constants along <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. Its sag is</p>
+<blockquote>
+<div><p>z(x, y) = A / (1 + B)</p>
+</div></blockquote>
+<p>where</p>
+<blockquote>
+<div><p>A = c_x x^2 + c_y y^2
+B = sqrt(1 - (1 + k_x) c_x^2 x^2 - (1 + k_y) c_y^2 y^2)</p>
+</div></blockquote>
+<p>with</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c_x</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">radius_x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c_y</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">radius_y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k_x</span> <span class="pre">=</span> <span class="pre">conic_const_x</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k_y</span> <span class="pre">=</span> <span class="pre">conic_const_y</span></code></p></li>
+</ul>
+<p>The normal is built from the graph surface <code class="docutils literal notranslate"><span class="pre">z</span> <span class="pre">=</span> <span class="pre">z(x,</span> <span class="pre">y)</span></code>:</p>
+<blockquote>
+<div><p>n ~ (dz/dx, dz/dy, -1)</p>
+</div></blockquote>
+<p>using the analytic partial derivatives of the biconic sag and then
+normalizing the vector to unit length.</p>
+<p class="rubric">Notes</p>
+<p>This is the natural choice when the two principal meridians should be
+parameterized independently instead of using one rotationally symmetric
+radial coordinate.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypo.surface.build_conic_sag_normal">
+<span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">build_conic_sag_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.build_conic_sag_normal" title="Link to this definition"></a></dt>
+<dd><p>Build sag and normal callables for a rotationally symmetric conic.</p>
+<p>The surface is defined in Cartesian coordinates by a radial sag</p>
+<blockquote>
+<div><p>z(r) = c r^2 / (1 + sqrt(1 - (1 + k) c^2 r^2))</p>
+</div></blockquote>
+<p>where</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">r^2</span> <span class="pre">=</span> <span class="pre">x^2</span> <span class="pre">+</span> <span class="pre">y^2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">radius</span></code> is the curvature</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">conic_const</span></code> is the conic constant</p></li>
+</ul>
+<p>This is the standard explicit sag form for conic sections used in optics.
+Typical values are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">0</span></code>: sphere</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-1</span> <span class="pre">&lt;</span> <span class="pre">k</span> <span class="pre">&lt;</span> <span class="pre">0</span></code>: ellipsoid</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">-1</span></code>: paraboloid</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">&lt;</span> <span class="pre">-1</span></code>: hyperboloid</p></li>
+</ul>
+<p>The returned normal is built from the graph surface <code class="docutils literal notranslate"><span class="pre">z</span> <span class="pre">=</span> <span class="pre">z(x,</span> <span class="pre">y)</span></code>:</p>
+<blockquote>
+<div><p>n ~ (dz/dx, dz/dy, -1)</p>
+</div></blockquote>
+<p>with</p>
+<blockquote>
+<div><p>dz/dx = (dz/dr) x / r
+dz/dy = (dz/dr) y / r
+dz/dr = c r / sqrt(1 - (1 + k) c^2 r^2)</p>
+</div></blockquote>
+<p>The vector is then normalized to unit length before being returned as a
+<code class="docutils literal notranslate"><span class="pre">Vector</span></code> instance with fields <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>, and <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">radius</span></code> and <code class="docutils literal notranslate"><span class="pre">conic_const</span></code> match the standard optical conic
+parameterization, so this builder is suitable as a base term for conic and
+aspheric lens descriptions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypo.surface.build_even_asphere_sag_normal">
+<span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">build_even_asphere_sag_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conic_const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">even_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.build_even_asphere_sag_normal" title="Link to this definition"></a></dt>
+<dd><p>Build sag and normal callables for a conic with even-power corrections.</p>
+<p>The sag is written as</p>
+<blockquote>
+<div><p>z(r) = z_conic(r) + sum(A_n r^n)</p>
+</div></blockquote>
+<p>where <code class="docutils literal notranslate"><span class="pre">n</span></code> is even and the base conic term is</p>
+<blockquote>
+<div><p>z_conic(r) = c r^2 / (1 + sqrt(1 - (1 + k) c^2 r^2))</p>
+</div></blockquote>
+<p>with <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">radius</span></code> and <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">conic_const</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">even_terms</span></code> is a mapping from even power to coefficient, for example
+<code class="docutils literal notranslate"><span class="pre">{2:</span> <span class="pre">A2,</span> <span class="pre">4:</span> <span class="pre">A4,</span> <span class="pre">6:</span> <span class="pre">A6}</span></code>.</p>
+<p class="rubric">Notes</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">2</span></code> is allowed for compatibility with generalized Even Asphere
+formulas and some optical design software conventions.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">A2</span> <span class="pre">r^2</span></code> term is not independent from the base curvature set by
+<code class="docutils literal notranslate"><span class="pre">radius</span></code>. Using both as free parameters introduces degeneracy in the
+quadratic term near the vertex.</p></li>
+<li><p>The normal is computed from <code class="docutils literal notranslate"><span class="pre">z</span> <span class="pre">=</span> <span class="pre">z(r)</span></code> through</p>
+<blockquote>
+<div><p>dz/dx = (dz/dr) x / r
+dz/dy = (dz/dr) y / r
+n ~ (dz/dx, dz/dy, -1)</p>
+</div></blockquote>
+<p>and is normalized to unit length before being returned as a <code class="docutils literal notranslate"><span class="pre">Vector</span></code>.</p>
+</li>
+</ul>
+<p class="rubric">Examples</p>
+<p><code class="docutils literal notranslate"><span class="pre">even_terms</span></code> may be passed as, for example,</p>
+<p><code class="docutils literal notranslate"><span class="pre">{2:</span> <span class="pre">A2,</span> <span class="pre">4:</span> <span class="pre">A4,</span> <span class="pre">6:</span> <span class="pre">A6,</span> <span class="pre">8:</span> <span class="pre">A8}</span></code></p>
+<p>where the <code class="docutils literal notranslate"><span class="pre">2</span></code> term is accepted for compatibility with generalized
+asphere formulas, even though it is not independent from the base curvature.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypo.surface.build_poly_sag_normal">
+<span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">build_poly_sag_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.build_poly_sag_normal" title="Link to this definition"></a></dt>
+<dd><p>Build sag and normal callables for a 2-D polynomial surface.</p>
+<p>The surface is defined as</p>
+<blockquote>
+<div><p>z(x, y) = sum(c_ij (x / R)^i (y / R)^j)</p>
+</div></blockquote>
+<p>where <code class="docutils literal notranslate"><span class="pre">R</span> <span class="pre">=</span> <span class="pre">normalization_radius</span></code> and <code class="docutils literal notranslate"><span class="pre">c_ij</span></code> are given by the input
+coefficient matrix. <code class="docutils literal notranslate"><span class="pre">coefficients</span></code> may be either</p>
+<ul class="simple">
+<li><p>an array-like coefficient matrix, or</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">.surfc</span></code> file containing the matrix.</p></li>
+</ul>
+<p>The normal is computed from the graph surface <code class="docutils literal notranslate"><span class="pre">z</span> <span class="pre">=</span> <span class="pre">z(x,</span> <span class="pre">y)</span></code>:</p>
+<blockquote>
+<div><p>n ~ (dz/dx, dz/dy, -1)</p>
+</div></blockquote>
+<p>before normalization.</p>
+<p class="rubric">Notes</p>
+<p>This builder is useful for freeform surfaces represented by a rectangular
+coefficient matrix <code class="docutils literal notranslate"><span class="pre">c_ij</span></code>. The polynomial basis follows NumPy’s
+<code class="docutils literal notranslate"><span class="pre">polyval2d</span></code> convention, where the first axis corresponds to powers of
+<code class="docutils literal notranslate"><span class="pre">x</span></code> and the second axis corresponds to powers of <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypo.surface.build_rsf_sag_normal">
+<span class="sig-prename descclassname"><span class="pre">hypo.surface.</span></span><span class="sig-name descname"><span class="pre">build_rsf_sag_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cm'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.surface.build_rsf_sag_normal" title="Link to this definition"></a></dt>
+<dd><p>Build sag and normal callables from an RSF radial sag file.</p>
+<p>The RSF file is expected to contain two header lines followed by columns
+<code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">z)</span></code>. Input values are converted to mm before interpolation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile_file</strong> – Path to the radial sag file.</p></li>
+<li><p><strong>units</strong> – Unit tag of the file contents. Supported values are <code class="docutils literal notranslate"><span class="pre">'mm'</span></code>, <code class="docutils literal notranslate"><span class="pre">'cm'</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">'m'</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The file is interpreted as a rotationally symmetric profile:</p>
+<blockquote>
+<div><p>r = sqrt(x^2 + y^2)</p>
+</div></blockquote>
+<p>A cubic spline is fit to the sag <code class="docutils literal notranslate"><span class="pre">z(r)</span></code>, and the normal is recovered
+from the spline derivative <code class="docutils literal notranslate"><span class="pre">dz/dr</span></code>.</p>
+</dd></dl>
+
+</section>
+<section id="module-hypo.lenspy">
+<span id="hypo-lenspy"></span><h1>hypo.lenspy<a class="headerlink" href="#module-hypo.lenspy" title="Link to this heading"></a></h1>
+<p>Lens physical-optics workflow for a two-surface dielectric element.</p>
+<p>This module provides a compact high-level wrapper around the lower-level
+surface, coordinate, and PO propagation utilities in <code class="docutils literal notranslate"><span class="pre">Kirchhoffpy</span></code>.</p>
+<p>The central class <code class="docutils literal notranslate"><span class="pre">simple_Lens</span></code> models a lens with:</p>
+<ul class="simple">
+<li><p>an aperture rim that defines where each face is sampled,</p></li>
+<li><p>two explicit surface objects that provide <code class="docutils literal notranslate"><span class="pre">sag(x,</span> <span class="pre">y)</span></code> and <code class="docutils literal notranslate"><span class="pre">normal(x,</span> <span class="pre">y)</span></code>,</p></li>
+<li><p>a lens-local coordinate system plus one local frame for each face,</p></li>
+<li><p>an optional anti-reflection coating description,</p></li>
+<li><p>and a workflow that stores equivalent surface fields to disk for reuse.</p></li>
+</ul>
+<section id="typical-workflow">
+<h2>Typical workflow<a class="headerlink" href="#typical-workflow" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Build two surface objects, for example from <code class="docutils literal notranslate"><span class="pre">surfacev2</span></code>.</p></li>
+<li><p>Construct <code class="docutils literal notranslate"><span class="pre">simple_Lens</span></code> with those surfaces and the lens coordinate frame.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">PO_analysis(...)</span></code> with an illuminating source.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">source(...)</span></code> to radiate the stored lens output currents to a target
+plane or spherical grid.</p></li>
+</ol>
+</section>
+<section id="coordinate-convention">
+<h2>Coordinate convention<a class="headerlink" href="#coordinate-convention" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self.coord_sys</span></code> is the lens body coordinate system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coord_sys_f1</span></code> is the local frame of the first lens face.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coord_sys_f2</span></code> is the local frame of the second lens face.</p></li>
+<li><p>Face-2 is translated by the center thickness and rotated by <code class="docutils literal notranslate"><span class="pre">pi</span></code> around
+<code class="docutils literal notranslate"><span class="pre">x</span></code> so that its local outward normal follows the package convention.</p></li>
+</ul>
+</section>
+<section id="units">
+<h2>Units<a class="headerlink" href="#units" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Frequency input is expected in GHz.</p></li>
+<li><p>The wave number <code class="docutils literal notranslate"><span class="pre">k</span></code> is computed in mm^-1.</p></li>
+<li><p>Surface sampling coordinates are therefore expected to be consistent with mm.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="hypo.lenspy.simple_Lens">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hypo.lenspy.</span></span><span class="sig-name descname"><span class="pre">simple_Lens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord_system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'simplelens'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AR_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">device(type='cuda')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputfolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output/'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.lenspy.simple_Lens" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Two-surface dielectric lens model driven by physical optics.</p>
+<p>The class stores the geometric description of the lens, samples both
+refracting surfaces, computes equivalent currents on them, and can then use
+the stored currents as a secondary source for near-field or far-field
+propagation.</p>
+<p class="rubric">Notes</p>
+<p>This class is intentionally orchestration-focused. The heavy numerical work
+is delegated to:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lensPO</span></code> for the two-interface transmission workflow,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PO_GPU</span></code> for near-field propagation,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PO_far_GPU</span></code> for far-field propagation,</p></li>
+<li><p>and the surface objects for geometry evaluation.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.lenspy.simple_Lens.PO_analysis">
+<span class="sig-name descname"><span class="pre">PO_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">po_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_cur.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f1_f2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.lenspy.simple_Lens.PO_analysis" title="Link to this definition"></a></dt>
+<dd><p>Run a two-surface physical-optics analysis through the lens.</p>
+<p>The input source illuminates the first chosen face. Equivalent fields
+and transmission coefficients are computed on both faces and stored in
+an HDF5 current file for later reuse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span>) – <p>Source object that provides</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">source.coord_sys</span></code>: the source local coordinate system</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source.source(target_points,</span> <span class="pre">k)</span></code>: field evaluation on points</p></li>
+</ul>
+</p></li>
+<li><p><strong>N1</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Surface sampling counts for face 1 and face 2. Each must be a
+length-2 sequence accepted by <code class="docutils literal notranslate"><span class="pre">Elliptical_rim.sampling</span></code>.</p></li>
+<li><p><strong>N2</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Surface sampling counts for face 1 and face 2. Each must be a
+length-2 sequence accepted by <code class="docutils literal notranslate"><span class="pre">Elliptical_rim.sampling</span></code>.</p></li>
+<li><p><strong>freq</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Frequency in GHz.</p></li>
+<li><p><strong>device</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code>]</span>) – Torch device or backend tag forwarded to the PO solvers.</p></li>
+<li><p><strong>po_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Output suffix used for the stored current HDF5 file.</p></li>
+<li><p><strong>order</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – <p>Propagation direction across the lens:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'f1_f2'</span></code>: source enters face 1 and exits face 2</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'f2_f1'</span></code>: source enters face 2 and exits face 1</p></li>
+</ul>
+</p></li>
+<li><p><strong>effects</strong> (<em>Side</em>)</p></li>
+<li><p><strong>------------</strong></p></li>
+<li><p><strong>self.f2_E_t</strong> (<em>This method updates in-memory field attributes such as</em>)</p></li>
+<li><p><strong>self.surf_cur_file.</strong> (<em>and writes the final surface-current file to</em>)</p></li>
+<li><p><strong>summary</strong> (<em>Workflow</em>)</p></li>
+<li><p><strong>----------------</strong></p></li>
+<li><p><strong>rim.</strong> (<em>1. Sample both faces on the aperture</em>)</p></li>
+<li><p><strong>frame.</strong> (<em>4. Rotate the incident fields back into the lens</em>)</p></li>
+<li><p><strong>source.</strong> (<em>3. Convert face-1 samples into the source frame and query the</em>)</p></li>
+<li><p><strong>frame.</strong></p></li>
+<li><p><strong>workflow.</strong> (<em>5. Run lensPO for the two-surface transmission</em>)</p></li>
+<li><p><strong>HDF5.</strong> (<em>6. Save both faces and their transmitted fields to</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.lenspy.simple_Lens.sampling">
+<span class="sig-name descname"><span class="pre">sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quadrature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.lenspy.simple_Lens.sampling" title="Link to this definition"></a></dt>
+<dd><p>Sample a lens face on the rim aperture and evaluate its normal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_N</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Two sampling counts passed to the aperture-rim Gaussian sampler.</p></li>
+<li><p><strong>surf</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#hypo.surface.Surface" title="hypo.surface.Surface"><code class="xref py py-class docutils literal notranslate"><span class="pre">Surface</span></code></a></span>) – Surface object providing <code class="docutils literal notranslate"><span class="pre">sag</span></code> and <code class="docutils literal notranslate"><span class="pre">normal</span></code> in face-local
+coordinates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>f</em> – Sampled surface points with coordinates <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">z)</span></code> and quadrature
+weights <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p></li>
+<li><p><em>f_n</em> – Unit surface normal at each sampled point.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.lenspy.simple_Lens.source">
+<span class="sig-name descname"><span class="pre">source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">far_near</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'near'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">device(type='cuda')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cur_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.lenspy.simple_Lens.source" title="Link to this definition"></a></dt>
+<dd><p>Propagate stored lens currents to a requested target grid or points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span>) – Either a predefined grid object such as <code class="docutils literal notranslate"><span class="pre">Spherical_grd</span></code> or
+<code class="docutils literal notranslate"><span class="pre">plane_grd</span></code>, or a raw target point container accepted by
+<code class="docutils literal notranslate"><span class="pre">PO_GPU</span></code>.</p></li>
+<li><p><strong>k</strong> – Wave number in mm^-1.</p></li>
+<li><p><strong>far_near</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Select far-field or near-field propagation for supported grid
+targets. Raw point-set targets always use the near-field kernel.</p></li>
+<li><p><strong>device</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code></span>) – Torch device forwarded to the PO propagators.</p></li>
+<li><p><strong>cur_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Optional explicit current file. If omitted, the most recent file
+produced by <code class="docutils literal notranslate"><span class="pre">PO_analysis</span></code> is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Vector</span></code>]]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> for grid targets, because the resulting fields are written into</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target.E</span></code> and <code class="docutils literal notranslate"><span class="pre">target.H</span></code> in place.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(E,</span> <span class="pre">H)</span></code> for raw target point sets, because there is no grid object to</p></li>
+<li><p><em>mutate.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hypo.lenspy.simple_Lens.to_pyvista_solid">
+<span class="sig-name descname"><span class="pre">to_pyvista_solid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">121</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">121</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_mesh_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.lenspy.simple_Lens.to_pyvista_solid" title="Link to this definition"></a></dt>
+<dd><p>Build a solid lens model in pyvista (face1 + face2 + side wall).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Nx</strong> (<em>int</em>) – Sampling counts for face meshes.</p></li>
+<li><p><strong>Ny</strong> (<em>int</em>) – Sampling counts for face meshes.</p></li>
+<li><p><strong>N_boundary</strong> (<em>int</em>) – Number of boundary points used to construct side wall.</p></li>
+<li><p><strong>include_error</strong> (<em>bool</em>) – If True, include configured surface errors in geometry.</p></li>
+<li><p><strong>include_thickness</strong> (<em>bool</em>) – If True, face2 z includes <cite>self.thickness</cite>.</p></li>
+<li><p><strong>plotter</strong> (<em>pyvista.Plotter</em><em> or </em><em>None</em>) – If provided, add the solid mesh to this plotter.</p></li>
+<li><p><strong>add_mesh_kwargs</strong> (<em>dict</em><em> or </em><em>None</em>) – Optional kwargs passed to <cite>plotter.add_mesh</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>solid</strong> – Triangulated/cleaned solid lens mesh.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyvista.PolyData</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../introductions/installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="source_objects.html" class="btn btn-neutral float-right" title="hypo.Feedpy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, xiaodong ren.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

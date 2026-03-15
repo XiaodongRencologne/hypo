@@ -297,7 +297,7 @@ class simple_Lens:
 
     def source(self,
                target: Any,
-               k: float,
+               freq: float,
                far_near: str='near',
                device: T.device=T.device('cuda'),
                cur_file: Optional[str]=None) -> Optional[Tuple[Vector, Vector]]:
@@ -328,6 +328,8 @@ class simple_Lens:
         ``(E, H)`` for raw target point sets, because there is no grid object to
         mutate.
         """
+        Lambda = c*1000/freq/10**9
+        k = 2*np.pi/Lambda
         # Read the equivalent currents computed on the output face.
         if cur_file is None and self.surf_cur_file is None:
             raise ValueError("No stored current file is available. Run PO_analysis first or pass cur_file.")

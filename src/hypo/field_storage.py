@@ -2,7 +2,7 @@ import numpy as np
 import h5py
 from .vecops import Vector
 
-class Spherical_grd():
+class Spherical_grd:
     """Spherical sampling grid for near-field or far-field data.
 
     The grid stores
@@ -105,6 +105,9 @@ def read_grd(fname):
     """Read the stored native coordinates and electric field from a grid file."""
     with h5py.File(fname,'r') as f:
         Type = f.attrs['grid_type']
+        Ex = f['Ex'][:]
+        Ey = f['Ey'][:]
+        Ez = f['Ez'][:]
         if Type == 'uv':
             x = f['u'][:] 
             y = f['v'][:]
@@ -114,10 +117,6 @@ def read_grd(fname):
         elif Type == 'xy':
             x = f['x'][:]
             y = f['y'][:]
-        Ex = f['Ex'][:]
-        Ey = f['Ey'][:]
-        Ez = f['Ez'][:]
-
     return x,y, Ex, Ey, Ez
 
 

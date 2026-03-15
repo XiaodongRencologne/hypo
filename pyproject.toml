@@ -1,14 +1,22 @@
-[tool.poetry]
+[project]
 name = "hypo"
-version = "0.1.0"
-description = ""
-authors = ["Xiaodong <xiaodongrenpmo@gmail.com>"]
+version = "0.0.0"
+description = "Physical optics analysis for mm and submm optical systems. The code can be used to analyze reflectors and refractive optics with Anti-reflection coating. It also allows to use NVIDIA CUDA acceleration."
+authors = [
+    {name = "Xiaodong Ren"}
+]
+license = {text = "\"MIT\""}
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.9"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy (>=1.26.4)",
+    "scipy (>=1.7)",
+    "matplotlib (>=3.5)",
+    "torch (>=2.0)",
+    "tqdm (>=4.67.3,<5.0.0)"
+]
 
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

@@ -12,6 +12,7 @@ Notes
 import numpy as np;
 from .vecops import Vector
 from .coxvec import Ludwig_Cox_vector as CO
+from . import c
 
 from . import Z0
 
@@ -48,13 +49,14 @@ class GaussiBeam():
     def __init__(self,
                  Edge_taper,
                  Edge_angle,
-                 k,
+                 freq,
                  coord_sys,
-                 polarization='scalar'):
+                 polarization='x'):
         # Input beam specifications.
         self.T = Edge_taper
         self.A = Edge_angle/180*np.pi
-
+        Lambda = c*1000/freq/10**(9) # mm
+        k = 2*np.pi/Lambda
         # Shared coordinate transformation object.
         self.coord_sys = coord_sys
         self.k = k

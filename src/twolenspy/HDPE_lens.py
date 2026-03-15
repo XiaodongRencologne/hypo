@@ -3,7 +3,7 @@ from hypo import lenspy
 from hypo import Feedpy
 from hypo import Aperture_Filter
 from hypo import rim
-from hypo import surfacev2
+from hypo import surface
 import matplotlib.pyplot as plt
 import matplotlib.tri as tri
 import numpy as np

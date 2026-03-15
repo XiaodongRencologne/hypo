@@ -48,7 +48,8 @@ def lensPO(face_source, face_source_n, face_source_dS,
     # 1) Optional AR setup:
     #    - with AR: use interpolated AR1/AR2
     #    - no AR: pass AR=None to use base Fresnel coefficients
-    use_ar = (AR_filename is not None) or (frequency is not None)
+    print(AR_filename, frequency)
+    use_ar = AR_filename is not None
     if use_ar and (AR_filename is None or frequency is None):
         raise ValueError("AR_filename and frequency must be provided together, or both omitted.")
 
