@@ -59,8 +59,12 @@ pip install .
 
 Currently, there are two examples to show how to build a optical system and run po analysis.
 
-### 1. A simple HDPE lens
-- [See examples](docs/examples/HDPE_SimpleLens.md)
-
+### 1. 
+- [A simple HDPE lens](docs/source/examples/HDPE_SimpleLens.md)
+or
+- [Jupyter notebook](examples/HDPE_SimpleLens.ipynb)
 ### 2. Two biconic Silicon lenses
-- [See examples](docs/examples/Biconic_lens.md)
+- [Two biconic Silicon lenses](docs/source/examples/Biconic_lens.md)
+or
+
+- [Jupyter notebook](examples/Biconic_lens.ipynb)
