@@ -42,6 +42,25 @@ The documentation introduces the scope of the current release, installation step
 Clone the repository and install the package:
 
 ```bash
+# 1. create environment
+conda create -n hypo python=3.10
+conda activate hypo
+
+# 2. install pytorch with CUDA
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# 3. install this package
 git clone https://github.com/XiaodongRencologne/hypo.git
 cd hypo
 pip install .
+```
+
+## Examples
+
+Currently, there are two examples to show how to build a optical system and run po analysis.
+
+### 1. A simple HDPE lens
+- [See examples](docs/examples/HDPE_SimpleLens.md)
+
+### 2. Two biconic Silicon lenses
+- [See examples](docs/examples/Biconic_lens.md)
