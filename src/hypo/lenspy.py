@@ -155,7 +155,7 @@ class simple_Lens:
                     N1: Sequence[int],
                     N2: Sequence[int],
                     freq: float,
-                    device: Union[str, T.device]='cuda',
+                    device: str ='cuda',
                     po_name: str='_cur.h5',
                     order: str='f1_f2') -> None:
         """Run a two-surface physical-optics analysis through the lens.
@@ -299,7 +299,7 @@ class simple_Lens:
                target: Any,
                freq: float,
                far_near: str='near',
-               device: T.device=T.device('cuda'),
+               device: str='cuda',
                cur_file: Optional[str]=None) -> Optional[Tuple[Vector, Vector]]:
         """Propagate stored lens currents to a requested target grid or points.
 

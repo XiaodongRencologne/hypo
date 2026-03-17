@@ -30,7 +30,7 @@ import os
 from tqdm import tqdm
 import numpy as np
 import torch as T
-from torch.cuda.amp import autocast, GradScaler
+from torch.cuda.amp import autocast
 cpu_cores = T.get_num_threads()
 T.set_num_threads(cpu_cores*2)
 from .vecops import Vector, dot, cross
@@ -182,6 +182,7 @@ def PO_GPU_2(face1,face1_n,face1_dS,
         ee = T.cross(JM, R, dim = 0).contiguous()
         Ee = ee.sum(dim = -1)
         del(ee)
+
         return Ee, He
     # Estimate a target batch size from available memory. This is a practical
     # heuristic rather than an exact bound; it trades memory pressure against
@@ -197,9 +198,11 @@ def PO_GPU_2(face1,face1_n,face1_dS,
 
         # Adjust batch size based on free memory
         element_size = JE.element_size() * JE.nelement()
-        batch_size = int(free_memory / element_size / 20)
+        batch_size = int(free_memory / element_size / 50)
+        print(f"Batch size: {batch_size}")
     else:
-        batch_size = os.cpu_count() * 10
+        batch_size = os.cpu_count() * 2
+        print(f"Batch size: {batch_size}")
 
     print(f"Batch size: {batch_size}")
     N = face2.x.size
@@ -208,37 +211,38 @@ def PO_GPU_2(face1,face1_n,face1_dS,
     # Process the observation points in batches so the full (target x source)
     # tensor does not need to reside in memory at once.
 
-    with autocast():
-        with T.no_grad():
-            for i in tqdm(range(num_batches),mininterval=5):
-                start = i * batch_size
-                end = (i + 1) * batch_size
-                Ee, He = calculate_fields(Surf2[:,start:end,:].contiguous() ,k_n)
+    with T.no_grad():
+        for i in tqdm(range(num_batches),mininterval=5):
+            start = i * batch_size
+            end = (i + 1) * batch_size
+            Ee, He = calculate_fields(Surf2[:,start:end,:].contiguous() ,k_n)
 
-                Field_E.x[start:end] = Ee[0, :]
-                Field_E.y[start:end] = Ee[1, :]
-                Field_E.z[start:end] = Ee[2, :]
-                Field_H.x[start:end] = He[0, :]
-                Field_H.y[start:end] = He[1, :]
-                Field_H.z[start:end] = He[2, :]
-                    
-            # Process the final partial batch, if any.
-            if N % batch_size != 0:
-                start = num_batches * batch_size
-                Ee, He = calculate_fields(Surf2[:,start:,:].contiguous(),k_n)
-                Field_E.x[start:] = Ee[0, :]
-                Field_E.y[start:] = Ee[1, :]
-                Field_E.z[start:] = Ee[2, :]
-                Field_H.x[start:] = He[0, :]
-                Field_H.y[start:] = He[1, :]
-                Field_H.z[start:] = He[2, :]
+            Field_E.x[start:end] = Ee[0, :]
+            Field_E.y[start:end] = Ee[1, :]
+            Field_E.z[start:end] = Ee[2, :]
+            Field_H.x[start:end] = He[0, :]
+            Field_H.y[start:end] = He[1, :]
+            Field_H.z[start:end] = He[2, :]
+            
+                
+        # Process the final partial batch, if any.
+        if N % batch_size != 0:
+            start = num_batches * batch_size
+            Ee, He = calculate_fields(Surf2[:,start:,:].contiguous(),k_n)
+            Field_E.x[start:] = Ee[0, :]
+            Field_E.y[start:] = Ee[1, :]
+            Field_E.z[start:] = Ee[2, :]
+            Field_H.x[start:] = He[0, :]
+            Field_H.y[start:] = He[1, :]
+            Field_H.z[start:] = He[2, :]
     # Convert the package vector objects back to NumPy arrays only after all
     # batched accumulation is finished.
     Field_E.to_numpy()
     Field_H.to_numpy()
 
-    T.cuda.empty_cache()
-    T.cuda.synchronize()
+    if device == 'cuda' or device == T.device('cuda'):
+        T.cuda.empty_cache()
+        T.cuda.synchronize()
     return Field_E, Field_H
     
 
@@ -345,42 +349,42 @@ def PO_far_GPU2(face1,face1_n,face1_dS,
 
         # Adjust batch size based on free memory
         element_size = JE.element_size() * JE.nelement()
-        batch_size = int(free_memory / element_size / 6)
+        batch_size = int(free_memory / element_size / 50)
     else:
-        batch_size = os.cpu_count() * 30
+        batch_size = os.cpu_count() * 2
 
     print(f"Batch size: {batch_size}")
     N = face2.x.size
     num_batches = N // batch_size
 
-    with T.no_grad():
-        for i in tqdm(range(num_batches),mininterval=5):
-            start = i * batch_size
-            end = (i + 1) * batch_size
-            Ee, He = calculate_fields(Surf2[:,start:end,:].contiguous() ,k)
+    for i in tqdm(range(num_batches),mininterval=5):
+        start = i * batch_size
+        end = (i + 1) * batch_size
+        Ee, He = calculate_fields(Surf2[:,start:end,:].contiguous() ,k)
 
-            Field_E.x[start:end] = Ee[0, :]
-            Field_E.y[start:end] = Ee[1, :]
-            Field_E.z[start:end] = Ee[2, :]
-            Field_H.x[start:end] = He[0, :]
-            Field_H.y[start:end] = He[1, :]
-            Field_H.z[start:end] = He[2, :]
-                
-        # Process the final partial batch, if any.
-        if N % batch_size != 0:
-            start = num_batches * batch_size
-            Ee, He = calculate_fields(Surf2[:,start:,:].contiguous(),k)
-            Field_E.x[start:] = Ee[0, :]
-            Field_E.y[start:] = Ee[1, :]
-            Field_E.z[start:] = Ee[2, :]
-            Field_H.x[start:] = He[0, :]
-            Field_H.y[start:] = He[1, :]
-            Field_H.z[start:] = He[2, :]
+        Field_E.x[start:end] = Ee[0, :]
+        Field_E.y[start:end] = Ee[1, :]
+        Field_E.z[start:end] = Ee[2, :]
+        Field_H.x[start:end] = He[0, :]
+        Field_H.y[start:end] = He[1, :]
+        Field_H.z[start:end] = He[2, :]
+            
+    # Process the final partial batch, if any.
+    if N % batch_size != 0:
+        start = num_batches * batch_size
+        Ee, He = calculate_fields(Surf2[:,start:,:].contiguous(),k)
+        Field_E.x[start:] = Ee[0, :]
+        Field_E.y[start:] = Ee[1, :]
+        Field_E.z[start:] = Ee[2, :]
+        Field_H.x[start:] = He[0, :]
+        Field_H.y[start:] = He[1, :]
+        Field_H.z[start:] = He[2, :]
     # Convert the package vector objects back to NumPy arrays only once the
     # entire far-field accumulation is complete.
     Field_E.to_numpy()
     Field_H.to_numpy()
 
-    T.cuda.empty_cache()
-    T.cuda.synchronize()
+    if device == 'cuda' or device == T.device('cuda'):
+        T.cuda.empty_cache()
+        T.cuda.synchronize()
     return Field_E, Field_H

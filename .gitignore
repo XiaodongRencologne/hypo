@@ -7,3 +7,6 @@ src/polarizationpy
 
 # ignore output data
 Data*
+
+# ignore test.ipyb
+test.ipynb

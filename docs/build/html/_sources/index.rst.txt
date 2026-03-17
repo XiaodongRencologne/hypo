@@ -20,10 +20,20 @@ API
 ========================
 .. toctree::
    :maxdepth: 2
+   :caption: API
    
    api/geometric_objects
    api/source_objects
    api/output_objects
+
+Examples
+========================
+.. toctree::
+   :maxdepth: 2
+   :caption: Examples
+   
+   examples/Biconic_lens
+   examples/HDPE_SimpleLens
 
 
 

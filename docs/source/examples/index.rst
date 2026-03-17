@@ -1,23 +1,15 @@
-Single Lens
+Single HDPE Lens
 =============
 
 .. toctree::
    :maxdepth: 2
 
-   geometric_objects
+   HDPE_SimpleLens.md
 
-Two HDPE Lens
+Biconic Silicon Lenses
 =============
 
 .. toctree::
    :maxdepth: 2
 
-   geometric_objects
-
-Biconic Lens
-=============
-
-.. toctree::
-   :maxdepth: 2
-
-   geometric_objects
+   Biconic_lens.md

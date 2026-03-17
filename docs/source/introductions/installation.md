@@ -18,6 +18,14 @@
 Clone the repository and install the package:
 
 ```bash
+# 1. create environment
+conda create -n hypo python=3.10
+conda activate hypo
+
+# 2. install pytorch with CUDA
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# 3. install this package
 git clone https://github.com/XiaodongRencologne/hypo.git
 cd hypo
 pip install .

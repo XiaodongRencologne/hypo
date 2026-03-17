@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Single HDPE Lens &mdash; hypo 0.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7026087e"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Two Biconic Silicon Lenses" href="Biconic_lens.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            hypo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introductions/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introductions/installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/geometric_objects.html">hypo.coordinate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/geometric_objects.html#module-hypo.rim">hypo.rim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/geometric_objects.html#module-hypo.surface">hypo.surface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/geometric_objects.html#module-hypo.lenspy">hypo.lenspy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/source_objects.html">hypo.Feedpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/output_objects.html">hypo.field_storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Biconic_lens.html">Two Biconic Silicon Lenses</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Single HDPE Lens</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">hypo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Single HDPE Lens</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/HDPE_SimpleLens.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="single-hdpe-lens">
+<h1>Single HDPE Lens<a class="headerlink" href="#single-hdpe-lens" title="Link to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../src&quot;</span><span class="p">)</span>
+<span class="c1"># Geometry objectors</span>
+<span class="kn">from</span> <span class="nn">hypo.lenspy</span> <span class="kn">import</span> <span class="n">simple_Lens</span> 
+<span class="kn">from</span> <span class="nn">hypo.surface</span> <span class="kn">import</span> <span class="n">ConicSurface</span>
+<span class="kn">from</span> <span class="nn">hypo.coordinate</span> <span class="kn">import</span> <span class="n">coord_sys</span>
+<span class="c1"># source objector</span>
+<span class="kn">from</span> <span class="nn">hypo.Feedpy</span> <span class="kn">import</span> <span class="n">GaussiBeam</span>
+
+<span class="c1"># output objector</span>
+<span class="kn">from</span> <span class="nn">hypo.field_storage</span> <span class="kn">import</span> <span class="n">Spherical_grd</span><span class="p">,</span><span class="n">save_grd</span>
+<span class="kn">from</span> <span class="nn">hypo.coxvec</span> <span class="kn">import</span> <span class="n">Ludwig_Cox_vector</span> <span class="k">as</span> <span class="n">CO</span>
+<span class="kn">from</span> <span class="nn">hypo.vecops</span> <span class="kn">import</span> <span class="n">Vector</span><span class="p">,</span> <span class="n">dot</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;1. Define coordinate system&#39;&#39;&#39;</span>
+<span class="n">coord_ref</span> <span class="o">=</span> <span class="n">coord_sys</span><span class="p">()</span>
+
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">coord_feed</span> <span class="o">=</span> <span class="n">coord_sys</span><span class="p">(</span><span class="n">ref_coord</span> <span class="o">=</span> <span class="n">coord_ref</span><span class="p">)</span>
+<span class="n">coord_Lens1</span> <span class="o">=</span> <span class="n">coord_sys</span><span class="p">(</span><span class="n">origin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">120</span><span class="p">],</span> <span class="n">ref_coord</span><span class="o">=</span> <span class="n">coord_ref</span><span class="p">)</span>
+<span class="n">coord_sky</span> <span class="o">=</span> <span class="n">coord_sys</span><span class="p">(</span><span class="n">origin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.128</span><span class="p">],</span> <span class="n">ref_coord</span> <span class="o">=</span><span class="n">coord_ref</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;2. Define lens two surfaces&#39;&#39;&#39;</span>
+<span class="n">radius_1</span> <span class="o">=</span> <span class="mi">63</span> <span class="c1"># mm</span>
+<span class="n">conic_const_1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.325625</span>
+<span class="n">Lens_face1</span> <span class="o">=</span> <span class="n">ConicSurface</span><span class="p">(</span><span class="n">radius_1</span><span class="p">,</span> <span class="n">conic_const</span> <span class="o">=</span> <span class="n">conic_const_1</span><span class="p">)</span>
+
+<span class="n">radius_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span> 
+<span class="n">Lens_face2</span> <span class="o">=</span> <span class="n">ConicSurface</span><span class="p">(</span><span class="n">radius_2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">z2</span> <span class="o">=</span> <span class="n">Lens_face2</span><span class="o">.</span><span class="n">sag</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">z1</span> <span class="o">=</span> <span class="n">Lens_face1</span><span class="o">.</span><span class="n">sag</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;3. Define Simple Lens&#39;&#39;&#39;</span>
+<span class="c1"># refractive index</span>
+<span class="n">HDPE</span> <span class="o">=</span> <span class="mf">1.525</span>
+<span class="c1"># thickness</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1">#mm</span>
+<span class="c1"># diameter</span>
+<span class="n">D</span>  <span class="o">=</span> <span class="mi">50</span><span class="c1"># mm</span>
+
+<span class="n">Lens1</span> <span class="o">=</span> <span class="n">simple_Lens</span><span class="p">(</span><span class="n">HDPE</span><span class="p">,</span>
+                    <span class="n">t1</span><span class="p">,</span>
+                    <span class="n">D</span><span class="p">,</span>
+                    <span class="n">Lens_face1</span><span class="p">,</span>
+                    <span class="n">Lens_face2</span><span class="p">,</span>
+                    <span class="n">coord_Lens1</span><span class="p">,</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Lens1&#39;</span><span class="p">,</span>
+                    <span class="n">AR_file</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">outputfolder</span> <span class="o">=</span> <span class="s1">&#39;Data/singleLens/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;4. Source: an idea Gaussian beam&#39;&#39;&#39;</span>
+<span class="n">Edge_taper</span>  <span class="o">=</span> <span class="o">-</span><span class="mi">20</span> <span class="c1">#dB</span>
+<span class="n">Edge_angle</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># degree</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">Feed</span> <span class="o">=</span> <span class="n">GaussiBeam</span><span class="p">(</span><span class="n">Edge_taper</span><span class="p">,</span> <span class="n">Edge_angle</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">coord_feed</span><span class="p">,</span><span class="n">polarization</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;5. Define the fields wanted to calculated&#39;&#39;&#39;</span>
+
+<span class="n">Beammap</span> <span class="o">=</span> <span class="n">Spherical_grd</span><span class="p">(</span><span class="n">coord_ref</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span>
+                        <span class="mi">1001</span><span class="p">,</span><span class="mi">1001</span><span class="p">,</span>
+                        <span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;eloveraz&#39;</span><span class="p">,</span>
+                        <span class="n">far_near</span> <span class="o">=</span> <span class="s1">&#39;far&#39;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39; Start PO anlaysis&#39;&#39;&#39;</span>
+
+<span class="n">Lens1</span><span class="o">.</span><span class="n">PO_analysis</span><span class="p">(</span><span class="n">Feed</span><span class="p">,</span>
+                  <span class="p">[</span><span class="mi">42</span><span class="p">,</span><span class="mi">128</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">48</span><span class="p">,</span><span class="mi">77</span><span class="p">],</span>
+                  <span class="n">freq</span><span class="p">)</span>
+<span class="n">Lens1</span><span class="o">.</span><span class="n">source</span><span class="p">(</span><span class="n">Beammap</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">far_near</span> <span class="o">=</span> <span class="s1">&#39;far&#39;</span><span class="p">)</span>
+<span class="n">save_grd</span><span class="p">(</span><span class="n">Beammap</span><span class="p">,</span> <span class="s1">&#39;Data/singleLens/centerbeam.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>None 90GHz
+Batch size: 160
+
+
+100%|██████████| 15/15 [00:00&lt;00:00, 38.58it/s]
+
+
+Batch size: 695
+
+
+100%|██████████| 1441/1441 [00:03&lt;00:00, 437.28it/s]
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">Beammap</span><span class="o">.</span><span class="n">coord_sys</span><span class="o">.</span><span class="n">ToSpherical</span><span class="p">(</span><span class="n">Beammap</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">Beammap</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">Beammap</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+<span class="n">co</span><span class="p">,</span><span class="n">cx</span><span class="p">,</span><span class="n">crho</span> <span class="o">=</span> <span class="n">CO</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">co</span><span class="p">)</span>
+<span class="n">E_co</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">Beammap</span><span class="o">.</span><span class="n">E</span> <span class="p">,</span> <span class="n">co</span><span class="p">)</span>
+<span class="n">E_cx</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">Beammap</span><span class="o">.</span><span class="n">E</span> <span class="p">,</span> <span class="n">cx</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Vector(numpy, shape=(3, 1002001))
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Beammap</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">vmax</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span><span class="n">vmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PolyCollection at 0x1f35283ed30&gt;
+</pre></div>
+</div>
+<p><img alt="png" src="../_images/HDPE_SimpleLens_11_1.png" /></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Beammap</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;jet&#39;</span><span class="p">,</span><span class="n">vmax</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span><span class="n">vmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.colorbar.Colorbar at 0x1f367a084f0&gt;
+</pre></div>
+</div>
+<p><img alt="png" src="../_images/HDPE_SimpleLens_12_1.png" /></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Biconic_lens.html" class="btn btn-neutral float-left" title="Two Biconic Silicon Lenses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, xiaodong ren.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

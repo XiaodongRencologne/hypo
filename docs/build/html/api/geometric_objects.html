@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hypo.coordinate &mdash; hypo 0.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
   
@@ -46,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introductions/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introductions/installation.html">Installation</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">hypo.coordinate</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#conventions">Conventions</a></li>
@@ -114,6 +115,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="source_objects.html">hypo.Feedpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="output_objects.html">hypo.field_storage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/Biconic_lens.html">Two Biconic Silicon Lenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/HDPE_SimpleLens.html">Single HDPE Lens</a></li>
 </ul>
 
         </div>
@@ -819,7 +825,7 @@ is delegated to:</p>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="hypo.lenspy.simple_Lens.PO_analysis">
-<span class="sig-name descname"><span class="pre">PO_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cuda'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">po_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_cur.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f1_f2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.lenspy.simple_Lens.PO_analysis" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">PO_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">device(type='cuda')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">po_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_cur.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f1_f2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hypo.lenspy.simple_Lens.PO_analysis" title="Link to this definition"></a></dt>
 <dd><p>Run a two-surface physical-optics analysis through the lens.</p>
 <p>The input source illuminates the first chosen face. Equivalent fields
 and transmission coefficients are computed on both faces and stored in

@@ -1,3 +1,29 @@
+Metadata-Version: 2.4
+Name: hypo
+Version: 0.0.0
+Summary: Physical optics package for lens and reflector antenna simulations
+Author-email: Your Name <xiaodongrenpmo@gmail.com>
+License: MIT
+Keywords: physical optics,antenna,lens,electromagnetics
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy<2,>=1.23
+Requires-Dist: scipy==1.13.1
+Requires-Dist: matplotlib==3.9.2
+Requires-Dist: tqdm
+Requires-Dist: h5py==3.12.1
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Requires-Dist: sphinx; extra == "dev"
+Requires-Dist: myst-parser; extra == "dev"
+Requires-Dist: furo; extra == "dev"
+
 # Introduction
 HYPO is a physical optics package for modeling and analyzing electromagnetic propagation in optical systems. It is developed to support the study of beam formation and polarization properties in millimeter-wave and sub-millimeter instruments, where diffraction, phase evolution, dielectric-interface effects, and polarization-dependent responses must be treated consistently.
 
