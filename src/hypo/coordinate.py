@@ -210,7 +210,7 @@ class coord_sys():
         '''
         xyz=np.append([x,y],[z],axis=0)       # (3, N): assemble reference coordinates
         if not Vector:
-            xyz=xyz-self.origin               # remove local origin offset (in reference frame)
+            xyz=xyz-self.origin              # remove local origin offset (in reference frame)
         xyz=np.matmul(self.mat_r_l,xyz)       # rotate: reference -> local
         return xyz[0,:], xyz[1,:], xyz[2,:]
 

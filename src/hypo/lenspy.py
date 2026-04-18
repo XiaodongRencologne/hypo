@@ -253,7 +253,6 @@ class simple_Lens:
         f1_p = copy.deepcopy(f1)
         f1_p_n = copy.deepcopy(f1_n)
         f1_p.x, f1_p.y, f1_p.z = self.coord_sys.To_coord_sys(source.coord_sys, f1_p.x, f1_p.y, f1_p.z)
-        
         f1_p_n.x, f1_p_n.y, f1_p_n.z = self.coord_sys.To_coord_sys(
             source.coord_sys,
             f1_p_n.x,
@@ -263,7 +262,7 @@ class simple_Lens:
         )
         
         # Incident electric and magnetic fields on face 1.
-        E_in, H_in = source.source(f1_p, k)
+        E_in, H_in = source.source(f1_p, freq)
 
         # ``lensPO`` expects the input fields to be expressed in the lens-local
         # frame, so rotate the source-returned fields back from source coords to
@@ -292,7 +291,8 @@ class simple_Lens:
         # transmission factors for later field propagation.
         self.surf_cur_file = os.path.join(self.outfolder, self.name + po_name)
         with h5py.File(self.surf_cur_file, 'w') as file:
-            saveh5_surf(file, f1, f1_n, self.f1_E_t, self.f1_H_t, tp1, ts1, name='f1')
+            #saveh5_surf(file, f1, f1_n, self.f1_E_t, self.f1_H_t, tp1, ts1, name='f1')
+            saveh5_surf(file, f1, f1_n, E_in, H_in, tp1, ts1, name='f1')
             saveh5_surf(file, f2, f2_n, self.f2_E_t, self.f2_H_t, tp2, ts2, name='f2')
 
     def source(self,
@@ -385,6 +385,9 @@ class simple_Lens:
                 )
         else:
             # Fallback path for a raw target point set instead of a grid object.
+            print(face2.z)
+            print(face2.w)
+            print(target.z)
             E, H = PO_GPU(
                 face2,
                 face2_n,

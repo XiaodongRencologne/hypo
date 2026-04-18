@@ -57,6 +57,7 @@ class GaussiBeam():
         self.A = Edge_angle/180*np.pi
         Lambda = c*1000/freq/10**(9) # mm
         k = 2*np.pi/Lambda
+        print(k)
         # Shared coordinate transformation object.
         self.coord_sys = coord_sys
         self.k = k
@@ -81,7 +82,9 @@ class GaussiBeam():
             B = 2*np.pi*np.exp(-2*b*k)/4/b**3/k**3
             B = B*(np.exp(4*b*k)*(8*b**2*k**2-4*b*k+1)-1)
             Nf = np.sqrt(4*np.pi/k**2/B)
-            def beam(Mirror,k):
+            def beam(Mirror,FREQ):
+                Lambda = c*1000/FREQ/10**(9) # mm
+                k = 2*np.pi/Lambda
                 r,theta,phi = self.coord_sys.ToSpherical(Mirror.x,Mirror.y,Mirror.z)
                 F = (1+np.cos(theta)) * np.exp(k*b*np.cos(theta)) * np.exp(-1j*k*r)/r
                 F = Nf*F
@@ -104,7 +107,7 @@ class Elliptical_GaussianBeam():
     def __init__(self,
                  Edge_taper,
                  Edge_angle,
-                 k,
+                 freq,
                  coor_angle,coor_displacement,
                  polarization='scalar'):
         '''
@@ -116,6 +119,9 @@ class Elliptical_GaussianBeam():
         param 4: 'Mirror_in' the sampling points in the mirror illumanited by feed;
         param 5: 'fieldtype' chose the scalar mode or vector input field.
         '''
+        Lambda = c*1000/freq/10**(9) # mm
+        k = 2*np.pi/Lambda
+        
         self.Tx = Edge_taper[0]
         self.Ty = Edge_taper[1]
         self.Ax = Edge_angle[0]/180*np.pi
