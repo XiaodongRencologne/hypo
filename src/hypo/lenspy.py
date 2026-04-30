@@ -1,5 +1,3 @@
-
-#%%
 """
 Lens physical-optics workflow for a two-surface dielectric element.
 

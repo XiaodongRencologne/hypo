@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 """GPU-accelerated physical-optics propagation kernels.
 
 This module contains the low-level propagation routines used by the refractive
@@ -135,23 +132,6 @@ def PO_GPU_2(face1,face1_n,face1_dS,
                      T.tensor(face2.z.ravel())], dim=0).reshape(3,-1,1).to(device)
     Surf2 = Surf2.contiguous().to(device)
 
-    #N_current = face1.x.size
-    #N_target = face2.x.size 
-    #R_n_cpu = T.zeros((3,N_target,N_current),dtype = T.complex128,device = 'cpu', pin_memory=True)
-
-    #Memory_size = R_n_cpu.element_size() * R_n_cpu.nelement()
-
-
-    #@T.jit.script
-    '''
-    def calculate_R(point1,point2,K,R_n):
-        R = point2 - point1
-        r = T.linalg.norm(R, dim=0) # Compute the norm directly
-        R = R / r  # Normalize the vector
-        r.mul_(K)
-        Factor = T.exp(-1j*r)*(1+1j*r)/r**2
-        R_n = R * Factor
-    '''
     
     def calculate_fields(s2,K):
         """

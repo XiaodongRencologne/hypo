@@ -3,7 +3,6 @@ import numpy as np
 from .Gauss_L_quadr import Gauss_L_quadrs2d, Guass_L_quadrs_Circ
 import matplotlib.pyplot as plt
 
-# %%
 class Elliptical_rim():
     """
     Elliptical aperture/rim definition and sampling utilities.

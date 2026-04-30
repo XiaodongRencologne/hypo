@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[66]:
-
-
 """
 Utilities for building Gauss-Legendre quadrature sample points and weights.
 """

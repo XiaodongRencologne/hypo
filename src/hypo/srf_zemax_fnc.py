@@ -2,7 +2,7 @@
 import numpy as np
 from numpy.polynomial.polynomial import polyval
 import matplotlib.pyplot as plt
-# %%
+
 def EvenAsphere(R,k,coeffi_even):
     if R == 0:
         c = 0

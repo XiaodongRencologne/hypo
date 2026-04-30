@@ -17,7 +17,7 @@ from typing import Any
 import numpy as np
 
 # Physical Constants
-c = 299792458 # speed of light in m/s
+c = 299792458.0 # speed of light in m/s
 mu = 4 * np.pi * 10**(-7)  # permeability in H/m
 epsilon = 8.854187817 * 10**(-12)  # permittivity in F/m
 Z0 = np.sqrt(mu / epsilon, dtype=np.float64)  # impedance of free space in Ohm
