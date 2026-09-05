@@ -37,6 +37,9 @@ dev = [
     "myst-parser",
     "furo"
 ]
+viz = [
+    "plotly"
+]
 
 [tool.setuptools]
 package-dir = {"" = "src"}

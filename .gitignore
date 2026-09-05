@@ -10,3 +10,9 @@ Data*
 
 # ignore test.ipyb
 test.ipynb
+
+# ignore build
+build/
+
+# ignore egg-info
+*.egg-info
