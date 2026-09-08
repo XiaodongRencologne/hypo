@@ -40,6 +40,12 @@ dev = [
 viz = [
     "plotly"
 ]
+viz-pyvista = [
+    "pyvista",
+    "trame",
+    "trame-vtk",
+    "trame-vuetify"
+]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
